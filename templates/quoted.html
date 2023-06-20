@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Stock Information
+{% endblock %}
+
+{% block main %}
+    <h1>Stock Information</h1>
+    <!-- <p>Stock Name: {{ stock['name'] }}</p> -->
+    <p>Stock Symbol: {{ stock['symbol'] }}</p>
+    <p>Current Price: {{ stock['price'] | usd }}</p>
+
+    <div>
+        <form action="/" method="POST">
+            <input type="hidden" name="symbol" value="{{ stock['symbol'] }}">
+            <input type="hidden" name="shares" placeholder="0" style="width: 80px" value="{{ stock['shares'] }}">
+            <button type="submit" name="action" value="sell" class="btn btn-primary button">Sell</button>
+            <button type="submit" name="action" value="buy" class="btn btn-primary button">Buy</button>
+        </form>
+    </div>
+{% endblock %}

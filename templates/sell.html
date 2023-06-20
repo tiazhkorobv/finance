@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}Sell Stocks{% endblock %}
+
+{% block main %}
+    <h1 class="text-center">Sell Stocks</h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <form method="post" action="/sell" class="mt-4">
+                <div class="mb-3">
+                    <label for="symbol" class="form-label">Symbol:</label>
+                    <select id="symbol" name="symbol" class="form-select" style="width: 100%;">
+                        <option value="" {% if not request.args.get('symbol') %}selected{% endif %}>-- Select symbol --</option>
+                        <!-- Add the options dynamically based on your symbol data -->
+                        {% for symbol in symbols %}
+                            <option value="{{ symbol }}" {% if request.args.get('symbol') == symbol %}selected{% endif %}>{{ symbol }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="shares" class="form-label">Number of Shares:</label>
+                    <input type="number" id="shares" min="1" name="shares" class="form-control" style="width: 100%;" value="{{ request.args.get('shares') if request.args.get('shares') else '' }}" placeholder="Input quantity">
+                </div>
+                <button type="submit" class="btn btn-primary">Sell</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

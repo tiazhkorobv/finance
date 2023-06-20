@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}Buy Stocks{% endblock %}
+
+{% block main %}
+    <h1 class="text-center">Buy Stocks</h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <form method="post" action="/buy" class="mt-4">
+                <div class="mb-3">
+                    <label for="symbol" class="form-label">Stock Symbol:</label>
+                    <input type="text" id="symbol" name="symbol" class="form-control" style="width: 100%;" value="{{ request.args.get('symbol') if request.args.get('symbol') else '' }}" placeholder="Input symbol">
+                </div>
+                <div class="mb-3">
+                    <label for="shares" class="form-label">Number of Shares:</label>
+                    <input type="number" id="shares" min="1" name="shares" class="form-control" style="width: 100%;" value="{{ request.args.get('shares') if request.args.get('shares') else '' }}" placeholder="Input quantity">
+                </div>
+                <button type="submit" class="btn btn-primary">Buy</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Summary
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" type="text/css" href="styles.css">
+{% endblock %}
+
+{% block main %}
+<h1>My portfolio</h1>
+<br>
+<br>
+
+
+      {% if portfolio %}
+      <table>
+        <tr>
+          <th>Stock</th>
+          <!-- <th>Company name</th> -->
+          <th>Shares</th>
+          <th>Current Price</th>
+          <th>Total Value</th>
+        </tr>
+        {% for stock in portfolio %}
+        <tr id="stock_{{ loop.index }}">
+            <td class="text-start">{{ stock["symbol"] }}</td>
+            <!-- <td class="text-center">{{ stock["name"] }}</td> -->
+            <td class="text-center">{{ stock["total_shares"] }}</td>
+            <td class="text-center">{{ stock["price"] | usd }}</td>
+            <td class="text-end">{{ ((stock["price"]) * (stock["total_shares"])) | usd }}</td>
+            <td class="text-middle">
+              <form action="/" method="POST">
+                <input type="hidden" name="symbol" value="{{ stock['symbol'] }}">
+                <input type="number" name="shares" placeholder=0 style="width:80px" value="{{ stock['shares'] }}">
+                <button type="submit" name="action" value="sell" class="btn btn-primary button">Sell</button>
+                <button type="submit" name="action" value="buy" class="btn btn-primary button">Buy</button>
+              </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tr>
+          <tr>
+          <!-- <th></th> -->
+          <th></th>
+          <th></th>
+          <th>Current Cash: </th>
+          <td class="text-end">{{ cash_balance | usd }}</td>
+        </tr>
+        <tr>
+          <th></th>
+          <!-- <th></th> -->
+          <th></th>
+          <th>Grand Total (shares + cash):</th>
+          <td class="text-end">{{ grand_total | usd  }}</td>
+
+      </table>
+    {% else %}
+    <div>
+      <table>
+        <th>Grand Total (cash):</th>
+        <td >{{ grand_total | usd  }}</td>
+      </table>
+    </div>
+    <br>
+    <form action="/buy" method="GET">
+      <button type="submit" class="btn btn-primary">Buy Shares</button>
+    </form>
+    {% endif %}
+
+{% endblock %}
